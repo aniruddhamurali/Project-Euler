@@ -1,3 +1,5 @@
+# Problem 96
+# Answer: 24702
 
 # Displays the grid
 def print_grid(matrix):
@@ -81,55 +83,36 @@ def solve(matrix):
 
 # Driver main function
 if __name__ == "__main__":
-    total = 0
+    total = 0 # sum of the 3-digit numbers found in the top left corner of each solution grid
     grids = []
     file = open('p096_sudoku.txt', 'r')
     grid = [] # temp variable to store grids from file
-    lineCount = 0
+    lineCount = 0 # Used to differentiate lines
     for line in file:
         row = []
         line = line.strip()
-        # If we come to a line saying "Grid [number]", we have completed another grid
-        # Reset grid variable
-        #if line.isnumeric() == False:
-        if lineCount % 10 == 0:
-            grids.append(grid)
-            grid = []
+        
+        # If we come to a line saying "Grid [number]", continue
+        if line.isnumeric() == False:
+            lineCount += 1
             continue
+        
         for n in line:
             row.append(int(n))
         grid.append(row)
+
+        # If we are on the final row of a grid, add the grid to the grids variable
+        if lineCount % 10 == 9:
+            grids.append(grid)
+            grid = []
         lineCount += 1
 
-    print(grids[2])
-    nums = []
-    del grids[0] # This is an empty grid
     for grid in grids:
-        #print_grid(grid)
-        #print(' ')
         solve(grid)
         three_digit_num = str(grid[0][0]) + str(grid[0][1]) + str(grid[0][2])
-        nums.append(int(three_digit_num))
         total += int(three_digit_num)
 
-    print(nums)
     print(total)
-        
-        
-    '''grid = [[3,0,6,5,0,8,4,0,0],
-            [5,2,0,0,0,0,0,0,0],
-            [0,8,7,0,0,0,0,3,1],
-            [0,0,3,0,1,0,0,8,0],
-            [9,0,0,8,6,3,0,0,5],
-            [0,5,0,0,9,0,6,0,0],
-            [1,3,0,0,0,0,2,5,0],
-            [0,0,0,0,0,0,0,7,4],
-            [0,0,5,2,0,6,3,0,0]]
-
-    if solve(grid):
-        print_grid(grid)
-    else:
-        print("No solution exists")'''
 
 
 
