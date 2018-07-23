@@ -1,5 +1,16 @@
 # Problem 78
 # Answer: 55374
+# Link to refer to learn more about the partition algorithm:
+# https://en.wikipedia.org/wiki/Partition_(number_theory)#Partition_function
+
+'''
+The number of partitions is given by the following:
+p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + p(n-15) - p(n-22) - ...
+where p(0) = 1 and p(n) = 0 for n < 0.
+
+The sequence to use is that of generalized pentagon numbers:
+P(k) = k*(3k-1)/2, where k = 1, -1, 2, -2, 3, ...
+'''
 
 partitions = [1]
 n = 1
